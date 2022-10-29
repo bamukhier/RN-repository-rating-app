@@ -44,7 +44,7 @@ const formatNumber = (num) => {
 
 const RepositoryItem = ({item}) => {
   return (
-    <View style={styles.card}>
+    <View testID="repoItem" style={styles.card}>
       <View style={styles.headline}>
         <View>
           <Image source={{uri: item.ownerAvatarUrl}} style={styles.image}/>

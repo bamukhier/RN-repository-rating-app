@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
+    maxWidth: 1080,
+    marginHorizontal: 'auto',
     backgroundColor: theme.colors.mainBg,
     fontFamily: theme.fonts.main
   },
