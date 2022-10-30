@@ -5,6 +5,9 @@ export const GET_REPOSITORIES = gql`
         repositories {
             edges {
                 node {
+                    id
+                    ownerName
+                    name
                     fullName
                     description
                     language
@@ -13,6 +16,7 @@ export const GET_REPOSITORIES = gql`
                     reviewCount
                     ratingAverage
                     ownerAvatarUrl
+                    url
                 }
             }
         }
@@ -24,6 +28,28 @@ export const RETRIEVE_USER = gql`
         me {
             id
             username
+        }
+    }
+`;
+
+export const GET_REVIEWS = gql`
+    query getReview($id: ID!) {
+        repository(id: $id) {
+            ownerName
+            name
+            reviews {
+                edges {
+                    node {
+                        id
+                        text
+                        rating
+                        createdAt
+                        user {
+                            username
+                        }
+                    }
+                }
+            }
         }
     }
 `;

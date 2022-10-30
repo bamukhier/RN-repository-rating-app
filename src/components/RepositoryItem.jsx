@@ -1,11 +1,16 @@
-import { View, Image, StyleSheet } from "react-native"
+import { View, Image, Button, StyleSheet } from "react-native"
 import Text from './Text'
 import theme from "../theme";
+import {openURL} from "expo-linking";
+import { useNavigate } from "react-router-native";
 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.colors.repoItemBg,
-    padding: 12
+    padding: 12,
+    marginHorizontal: 8,
+    marginTop: 8,
+    borderRadius: 6
   },
   headline: {
       flexDirection: 'row',
@@ -20,15 +25,27 @@ const styles = StyleSheet.create({
   },
   langTag: {
     backgroundColor: theme.colors.langTagBg,
-    padding: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
     width: 'fit-content',
-    borderRadius: 4
+    justifyContent: 'center',
+    borderRadius: 6
   },
   stats: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: 16
   },
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  button: {
+    flex: 1,
+    marginHorizontal: 4,
+    marginTop: 16,
+    borderRadius: 16
+  }
 });
 
 const formatNumber = (num) => {
@@ -42,9 +59,11 @@ const formatNumber = (num) => {
   }
 }
 
-const RepositoryItem = ({item}) => {
+const RepositoryItem = ({item, showButtons}) => {
+  const navigate = useNavigate()
+
   return (
-    <View testID="repoItem" style={styles.card}>
+    <View testID="repoItem" style={[styles.card, {marginBottom: showButtons? 12 : 0}]}>
       <View style={styles.headline}>
         <View>
           <Image source={{uri: item.ownerAvatarUrl}} style={styles.image}/>
@@ -76,6 +95,17 @@ const RepositoryItem = ({item}) => {
             <Text>Rating</Text>
         </View>
       </View>
+      {
+        showButtons &&
+        <View style={styles.buttonWrapper}>
+          <View style={styles.button}>
+            <Button onPress={() => navigate('/review', {state: {ownerName: item.ownerName, repositoryName: item.name}})} title='Write a Revew' color='darkgreen' />
+          </View>
+          <View style={styles.button}>
+            <Button onPress={() => openURL(item.url)} title='Open in GitHub' color='silver' />
+          </View>
+        </View> 
+      }
     </View>
   );
 };

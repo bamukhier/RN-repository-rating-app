@@ -39,7 +39,6 @@ const AppNavBar = () => {
     useEffect(() => {
         if (!error && !loading){
             setLoggedUser(data.me);
-            console.log(loggedUser)
         }
      }, [data, loading]);
 
