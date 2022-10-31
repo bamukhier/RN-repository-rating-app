@@ -6,7 +6,16 @@ export const AUTHENTICATE = gql`
             accessToken
         }
     }
-`
+`;
+
+export const REGISTER_USER = gql`
+    mutation register($username: String!, $password: String!){
+        createUser(user: { username: $username, password: $password} ) {
+            id
+            username
+        }
+    }
+`;
 
 export const WRITE_REVIEW = gql`
     mutation reviewRepo($ownerName: String!, $repositoryName: String!, $rating: Int!, $text: String){
