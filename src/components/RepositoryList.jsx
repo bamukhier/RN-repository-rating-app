@@ -1,24 +1,90 @@
-import { FlatList, View, StyleSheet, Pressable} from 'react-native';
+import {useState} from 'react'
+import { FlatList, View, StyleSheet, Pressable, TextInput} from 'react-native';
 import { useNavigate } from "react-router-native";
+import { useDebounce } from "use-debounce";
+import { Picker } from "@react-native-picker/picker";
 import useRepositories from '../hooks/useRepositories'
 import RepositoryItem from './RepositoryItem'
+import themes from '../theme'
 
 const styles = StyleSheet.create({
   separator: {
     height: 2,
   },
+  searchBox: {
+    backgroundColor: 'white',
+    padding: 12,
+    marginTop: 8,
+    marginHorizontal: 8,
+    borderColor: 'white',
+    borderRadius: 8
+  },
+  picker: {
+    backgroundColor: themes.colors.mainBg,
+    height: 40, 
+    marginTop: 8, 
+    padding: 4, 
+    marginHorizontal: 8, 
+    borderColor: themes.colors.mainBg,
+    borderRadius: 8}
 });
 
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({repositories}) => {
+
+const SortingMethodPicker = ({order, changeOrderMethod}) => {
+  const newSelected = order.orderBy === 'CREATED_AT'
+                                    ? 'latest'
+                                    : (order.orderBy === 'RATING_AVERAGE' && order.orderDirection === 'DESC' 
+                                        ? 'highest' : 'lowest')
+  return (
+    <Picker
+        style={styles.picker}  
+        selectedValue={newSelected}
+        onValueChange={(itemValue, itemPosition) =>{
+          let order;
+          if (itemValue === 'latest'){
+            order = {
+              orderBy: 'CREATED_AT',
+              orderDirection: 'DESC'
+            }
+          } else if (itemValue === 'highest'){
+            order = {
+              orderBy: 'RATING_AVERAGE',
+              orderDirection: 'DESC'
+            }
+          } else if (itemValue === 'lowest'){
+            order = {
+              orderBy: 'RATING_AVERAGE',
+              orderDirection: 'ASC'
+            }
+          }
+        changeOrderMethod(order)
+      }
+    }
+    >
+    <Picker.Item label="Latest repositories" value="latest" />
+    <Picker.Item label="Highest rated repositories" value="highest" />
+    <Picker.Item label="Lowest rated repositories" value="lowest" />
+  </Picker>
+  )
+}
+
+const RepoListActions = ({order, changeOrderMethod, searchText, setSearchText}) => (
+  <View>
+    <TextInput style={styles.searchBox} placeholder='Search for a repository' value={searchText} onChangeText={(value) => setSearchText(value)} />
+    <SortingMethodPicker order={order} changeOrderMethod={changeOrderMethod} />
+  </View>
+)
+
+
+export const RepositoryListContainer = ({repositories, order, changeOrderMethod, searchText, setSearchText}) => {
   const navigate = useNavigate()
   // Get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
     : [];
-
   return (
     <FlatList
       data={repositoryNodes}
@@ -28,14 +94,28 @@ export const RepositoryListContainer = ({repositories}) => {
           <RepositoryItem item={item} />
         </Pressable>
       )}
+      ListHeaderComponent={<RepoListActions order={order} changeOrderMethod={changeOrderMethod} searchText={searchText} setSearchText={setSearchText}/>}
     />
   );
 }
 
 const RepositoryList = () => {
-  const {repositories} = useRepositories();
+  const [orderMethod, setOrderMethod] = useState({orderBy: 'CREATED_AT', orderDirection: 'DESC'})
+  const [searchText, setSearchText] = useState('')
+  const handleNewOrder = (newOrder) => setOrderMethod(newOrder)
+
+  // this is for debouncing the changing text from making unnecessary requests while typing
+  const [debouncedSearchText] = useDebounce(searchText, 1000)
+
+  const {repositories} = useRepositories({...orderMethod, searchKeyword: debouncedSearchText});
   
-  return <RepositoryListContainer repositories={repositories} />
+  return <RepositoryListContainer 
+    repositories={repositories} 
+    order={orderMethod} 
+    changeOrderMethod={handleNewOrder}
+    searchText={searchText}
+    setSearchText={setSearchText}
+  />
 
 };
 

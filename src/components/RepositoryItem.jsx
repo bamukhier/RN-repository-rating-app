@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.langTagBg,
     paddingHorizontal: 6,
     paddingVertical: 2,
-    width: 'fit-content',
     justifyContent: 'center',
     borderRadius: 6
   },
@@ -68,12 +67,12 @@ const RepositoryItem = ({item, showButtons}) => {
         <View>
           <Image source={{uri: item.ownerAvatarUrl}} style={styles.image}/>
         </View>
-        <View style={{flexShrink: 1}}>
+        <View style={{flexShrink: 1, alignItems: 'baseline'}}>
           <Text fontWeight="bold" style={styles.details}>{item.fullName}</Text>
           <Text color={theme.colors.textSecondary} style={styles.details} >{item.description}</Text>
           <View style={styles.langTag}>
-          <Text style={{...styles.details, color: 'white'}} >{item.language}</Text>
-            </View>  
+            <Text style={{...styles.details, color: 'white'}} >{item.language}</Text>
+          </View>  
         </View>
       </View>
 
