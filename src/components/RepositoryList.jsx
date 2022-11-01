@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { FlatList, View, StyleSheet, Pressable, TextInput} from 'react-native';
 import { useNavigate } from "react-router-native";
 import { useDebounce } from "use-debounce";
@@ -79,7 +79,7 @@ const RepoListActions = ({order, changeOrderMethod, searchText, setSearchText}) 
 )
 
 
-export const RepositoryListContainer = ({repositories, order, changeOrderMethod, searchText, setSearchText}) => {
+export const RepositoryListContainer = ({repositories, order, changeOrderMethod, searchText, setSearchText, onEndReach}) => {
   const navigate = useNavigate()
   // Get the nodes from the edges array
   const repositoryNodes = repositories
@@ -95,9 +95,13 @@ export const RepositoryListContainer = ({repositories, order, changeOrderMethod,
         </Pressable>
       )}
       ListHeaderComponent={<RepoListActions order={order} changeOrderMethod={changeOrderMethod} searchText={searchText} setSearchText={setSearchText}/>}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.40}
     />
   );
 }
+
+
 
 const RepositoryList = () => {
   const [orderMethod, setOrderMethod] = useState({orderBy: 'CREATED_AT', orderDirection: 'DESC'})
@@ -107,14 +111,17 @@ const RepositoryList = () => {
   // this is for debouncing the changing text from making unnecessary requests while typing
   const [debouncedSearchText] = useDebounce(searchText, 1000)
 
-  const {repositories} = useRepositories({...orderMethod, searchKeyword: debouncedSearchText});
+  const {repositories, fetchMore} = useRepositories({...orderMethod, searchKeyword: debouncedSearchText, first: 7});
   
+  const onEndReach = () => fetchMore()
+
   return <RepositoryListContainer 
     repositories={repositories} 
     order={orderMethod} 
     changeOrderMethod={handleNewOrder}
     searchText={searchText}
     setSearchText={setSearchText}
+    onEndReach={onEndReach}
   />
 
 };
