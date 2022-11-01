@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
       flexGrow: 1,
       paddingVertical: 16,
       paddingHorizontal: 12,
-      color: 'white'
+      color: 'white',
+      borderBottomColor: 'white'
   }
 });
 
@@ -48,6 +49,13 @@ const AppNavBar = () => {
             <Link to='/'>
                 <Text fontWeight="bold" fontSize="subheading" style={styles.flexItem}>
                     Repositories
+                </Text>
+            </Link>
+        </Pressable>
+        <Pressable>
+            <Link to='/my-reviews'>
+                <Text fontWeight="bold" fontSize="subheading" style={styles.flexItem}>
+                    My Reviews
                 </Text>
             </Link>
         </Pressable>

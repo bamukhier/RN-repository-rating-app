@@ -7,12 +7,15 @@ import AppNavBar from './AppNavBar'
 import SingleRepoView from './SingleRepoView'
 import WriteReview from './WriteReview'
 import theme from '../theme';
+import MyReviews from './MyReviews';
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
-    maxWidth: 1080,
+    width: '100%',
+    maxWidth: 768,
+    marginHorizontal: 'auto',
     backgroundColor: theme.colors.mainBg,
     fontFamily: theme.fonts.main
   },
@@ -28,6 +31,7 @@ const Main = () => {
         <Route path='/signup' element={<SignUp />} exact />
         <Route path='/repo' element={<SingleRepoView />} exact />
         <Route path='/review' element={<WriteReview />} exact  />
+        <Route path='/my-reviews' element={<MyReviews />} exact  />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
       

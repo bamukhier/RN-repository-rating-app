@@ -37,7 +37,7 @@ const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-uk',dateOptions).replace(/\//g, '-')
 }
 
-const ReviewItem = ({review}) => {
+const ReviewItem = ({review, onlyUserReview}) => {
     const calcRatingBorderColor = (rating) => {
         const borderColor = rating > 80 ? 'green' : (rating > 50 ? 'gold' : 'red')
         return {borderColor}
@@ -49,7 +49,7 @@ const ReviewItem = ({review}) => {
           <Text fontWeight="bold">{review.rating}</Text>
         </View>
         <View style={{flexShrink: 1}}>
-          <Text fontWeight="bold" style={styles.details}>{review.user.username}</Text>
+          <Text fontWeight="bold" style={styles.details}>{onlyUserReview ? review.repository.fullName : review.user.username}</Text>
           <Text color={theme.colors.textSecondary} style={styles.details} >{formatDate(review.createdAt)}</Text>
           <View>
           <Text style={[styles.details, {marginTop: 4}]} >{review.text ? review.text : ''}</Text>
