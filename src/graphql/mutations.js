@@ -24,3 +24,9 @@ export const WRITE_REVIEW = gql`
         }
     }
 `;
+
+export const DELETE_REVIEW = gql`
+    mutation deleteMyReview($reviewID: ID!){
+        deleteReview(id: $reviewID)
+    }
+`;

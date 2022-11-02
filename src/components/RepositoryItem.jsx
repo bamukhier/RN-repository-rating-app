@@ -60,7 +60,6 @@ const formatNumber = (num) => {
 
 const RepositoryItem = ({item, showButtons}) => {
   const navigate = useNavigate()
-
   return (
     <View testID="repoItem" style={[styles.card, {marginBottom: showButtons? 12 : 0}]}>
       <View style={styles.headline}>
@@ -97,11 +96,17 @@ const RepositoryItem = ({item, showButtons}) => {
       {
         showButtons &&
         <View style={styles.buttonWrapper}>
-          <View style={styles.button}>
-            <Button onPress={() => navigate('/review', {state: {ownerName: item.ownerName, repositoryName: item.name}})} title='Write a Revew' color='darkgreen' />
+          <View style={styles.button}>{
+            item.userHasReviewed ? (
+              <Button  title='Reviewd ✔' color='lightgreen' />
+
+            ) : (
+              <Button onPress={() => navigate('/review', {state: {ownerName: item.ownerName, repositoryName: item.name}})} title='Write a Revew' color='green' />
+            )
+          }
           </View>
           <View style={styles.button}>
-            <Button onPress={() => openURL(item.url)} title='Open in GitHub' color='silver' />
+            <Button onPress={() => openURL(item.url)} title='Open in GitHub' color='lightblue' />
           </View>
         </View> 
       }

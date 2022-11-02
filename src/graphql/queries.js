@@ -41,6 +41,7 @@ export const RETRIEVE_USER = gql`
                         rating
                         createdAt
                         repository {
+                            id
                             fullName
                         }
                     }
@@ -55,6 +56,16 @@ export const GET_REVIEWS = gql`
         repository(id: $id) {
             ownerName
             name
+            fullName
+            description
+            language
+            stargazersCount
+            forksCount
+            reviewCount
+            ratingAverage
+            ownerAvatarUrl
+            url
+            userHasReviewed
             reviews {
                 edges {
                     node {
@@ -63,6 +74,7 @@ export const GET_REVIEWS = gql`
                         rating
                         createdAt
                         user {
+                            id
                             username
                         }
                     }

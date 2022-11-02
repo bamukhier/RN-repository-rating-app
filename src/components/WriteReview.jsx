@@ -7,7 +7,7 @@ import FormikTextInput from './FormikTextInput'
 import theme from '../theme';
 import { WRITE_REVIEW } from "../graphql/mutations";
 import { useLocation } from 'react-router-native';
-
+import useAuthStorage from '../hooks/useAuthStorage';
 
 const styles = StyleSheet.create({
     container: {
@@ -75,6 +75,8 @@ export const ReviewContainer = ({onSubmit}) => {
 
 
 const WriteReview = () => {
+    const authStorage = useAuthStorage()
+    const userIsLoggedIn = authStorage.getAccessToken()
     const [mutate] = useMutation(WRITE_REVIEW)
     const navigate = useNavigate()
 
@@ -93,7 +95,7 @@ const WriteReview = () => {
     }
 
     return (
-        <ReviewContainer onSubmit={onSubmit} />
+        userIsLoggedIn && <ReviewContainer onSubmit={onSubmit} />
     )
 }
 export default WriteReview;
