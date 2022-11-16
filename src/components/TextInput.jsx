@@ -4,10 +4,10 @@ const styles = StyleSheet.create({
     elegant: {
         backgroundColor: 'white',
         padding: 12,
-        marginBottom: 8,
-        borderWidth: 0.5,
-        borderColor: 'gray',
-        borderRadius: 4
+        marginTop: 8,
+        marginHorizontal: 8,
+        borderColor: 'white',
+        borderRadius: 8
     },
     errorField: {
         borderColor: '#d73a4a'

@@ -3,6 +3,7 @@ import { FlatList, View, StyleSheet, Pressable, TextInput} from 'react-native';
 import { useNavigate } from "react-router-native";
 import { useDebounce } from "use-debounce";
 import { Picker } from "@react-native-picker/picker";
+import tw from 'twrnc'
 import useRepositories from '../hooks/useRepositories'
 import RepositoryItem from './RepositoryItem'
 import themes from '../theme'
@@ -20,13 +21,12 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   picker: {
-    backgroundColor: themes.colors.mainBg,
     height: 40, 
     marginTop: 8, 
     padding: 4, 
     marginHorizontal: 8, 
-    borderColor: themes.colors.mainBg,
-    borderRadius: 8}
+    borderRadius: 8
+  }
 });
 
 
@@ -40,7 +40,7 @@ const SortingMethodPicker = ({order, changeOrderMethod}) => {
                                         ? 'highest' : 'lowest')
   return (
     <Picker
-        style={styles.picker}  
+        style={[styles.picker, tw`bg-slate-100 border-slate-100`]}  
         selectedValue={newSelected}
         onValueChange={(itemValue, itemPosition) =>{
           let order;

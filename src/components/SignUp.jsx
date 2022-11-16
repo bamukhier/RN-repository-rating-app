@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-native";
 import { useMutation } from "@apollo/client";
 import { Formik } from 'formik';
 import * as yup from 'yup'
+import tw from 'twrnc'
 import Text from './Text';
 import FormikTextInput from './FormikTextInput'
 import theme from '../theme';
@@ -46,9 +47,9 @@ const SignUpForm = ({onSubmit}) => {
           <FormikTextInput name='username' placeholder='Username' />
           <FormikTextInput name='password' placeholder='Password' secureTextEntry />
           <FormikTextInput name='confirmPassword' placeholder='Password Confirmation' secureTextEntry />
-          <Pressable style={{marginTop: 16}}>
-            <Button onPress={onSubmit} title='Sign Up' color={theme.colors.primary} />
-          </Pressable>
+            <Pressable onPress={onSubmit} style={tw`justify-center items-center bg-blue-700 font-bold mx-2 mt-4 py-2 px-4 rounded-lg border border-blue-700`}>
+              <Text fontWeight="bold" style={tw`text-white`}>Sign Up</Text>
+            </Pressable>
       </View>
   )
 };

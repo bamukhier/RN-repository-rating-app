@@ -1,8 +1,9 @@
-import { View, Image, Button, StyleSheet } from "react-native"
-import Text from './Text'
-import theme from "../theme";
+import { View, Image, Button, StyleSheet, Pressable } from "react-native"
 import {openURL} from "expo-linking";
 import { useNavigate } from "react-router-native";
+import tw from 'twrnc'
+import Text from './Text'
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   card: {
@@ -24,10 +25,10 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
   },
   langTag: {
-    backgroundColor: theme.colors.langTagBg,
-    paddingHorizontal: 6,
+    paddingHorizontal: 8,
     paddingVertical: 2,
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 6
   },
   stats: {
@@ -37,7 +38,8 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'baseline'
   },
   button: {
     flex: 1,
@@ -69,8 +71,8 @@ const RepositoryItem = ({item, showButtons}) => {
         <View style={{flexShrink: 1, alignItems: 'baseline'}}>
           <Text fontWeight="bold" style={styles.details}>{item.fullName}</Text>
           <Text color={theme.colors.textSecondary} style={styles.details} >{item.description}</Text>
-          <View style={styles.langTag}>
-            <Text style={{...styles.details, color: 'white'}} >{item.language}</Text>
+          <View style={[tw`bg-slate-100`, styles.langTag]}>
+            <Text style={styles.details} >{item.language}</Text>
           </View>  
         </View>
       </View>
@@ -98,15 +100,21 @@ const RepositoryItem = ({item, showButtons}) => {
         <View style={styles.buttonWrapper}>
           <View style={styles.button}>{
             item.userHasReviewed ? (
-              <Button  title='Reviewd ✔' color='lightgreen' />
+              <Pressable disabled style={tw`justify-center items-center bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg border border-blue-700`}>
+                <Text fontWeight="bold" style={{color: "white"}}>Reviewed ✔</Text>
+              </Pressable>
 
             ) : (
-              <Button onPress={() => navigate('/review', {state: {ownerName: item.ownerName, repositoryName: item.name}})} title='Write a Revew' color='green' />
+              <Pressable onPress={() => navigate('/review', {state: {ownerName: item.ownerName, repositoryName: item.name}})}  style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
+                <Text fontWeight="bold" style={tw`text-blue-700`}>Review this Repo</Text>
+              </Pressable>
             )
           }
           </View>
           <View style={styles.button}>
-            <Button onPress={() => openURL(item.url)} title='Open in GitHub' color='lightblue' />
+            <Pressable onPress={() => openURL(item.url)} style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
+              <Text fontWeight="bold" style={tw`text-blue-700`}>Open in GitHub</Text>
+            </Pressable>
           </View>
         </View> 
       }

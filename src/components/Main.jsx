@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Route, Routes, Navigate } from 'react-router-native'
+import tw from 'twrnc';
 import RepositoryList from './RepositoryList'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
@@ -15,15 +16,15 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     width: '100%',
     maxWidth: 768,
+    height: '100%',
     marginHorizontal: 'auto',
-    backgroundColor: theme.colors.mainBg,
     fontFamily: theme.fonts.main
   },
 });
 
 const Main = () => {
   return (
-    <View style={styles.container}>
+    <View style={[tw`bg-slate-100`, styles.container]}>
       <AppNavBar />
       <Routes>
         <Route path='/' element={<RepositoryList />} exact />

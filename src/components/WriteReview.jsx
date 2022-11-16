@@ -4,10 +4,12 @@ import { useMutation } from "@apollo/client";
 import { Formik } from 'formik';
 import * as yup from 'yup'
 import FormikTextInput from './FormikTextInput'
-import theme from '../theme';
+import Text from './Text'
+import tw from 'twrnc'
 import { WRITE_REVIEW } from "../graphql/mutations";
 import { useLocation } from 'react-router-native';
 import useAuthStorage from '../hooks/useAuthStorage';
+import { useEffect, useState } from 'react';
 
 const styles = StyleSheet.create({
     container: {
@@ -47,9 +49,9 @@ const ReviewForm = ({onSubmit}) => {
           <FormikTextInput name='repositoryName' placeholder='Repository Name'  editable={false}/>
           <FormikTextInput name='rating' placeholder='Rating between 0-100' keyboardType='number-pad' />
           <FormikTextInput name='text' placeholder='Enter your review'  multiline numberOfLines={4} />
-          <Pressable style={{marginTop: 16}}>
-            <Button onPress={onSubmit} title='Submit Review' color={theme.colors.primary} />
-          </Pressable>
+          <Pressable onPress={onSubmit}  style={tw`justify-center items-center mt-4 bg-blue-700 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-4 rounded-lg border border-blue-700`}>
+            <Text fontWeight="bold" style={{color: "white"}}>Publish</Text>
+           </Pressable>
       </View>
   )
 };
@@ -76,7 +78,8 @@ export const ReviewContainer = ({onSubmit}) => {
 
 const WriteReview = () => {
     const authStorage = useAuthStorage()
-    const userIsLoggedIn = authStorage.getAccessToken()
+    const [userIsLoggedIn, setUserIsLoggedIn] = useState()
+    console.log(userIsLoggedIn)
     const [mutate] = useMutation(WRITE_REVIEW)
     const navigate = useNavigate()
 
@@ -94,8 +97,12 @@ const WriteReview = () => {
         }
     }
 
+    useEffect( () => {
+        authStorage.getAccessToken().then(token => setUserIsLoggedIn(token))
+    }, [])
+
     return (
-        userIsLoggedIn && <ReviewContainer onSubmit={onSubmit} />
+        userIsLoggedIn ? <ReviewContainer onSubmit={onSubmit} /> : null
     )
 }
 export default WriteReview;
