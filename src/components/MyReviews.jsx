@@ -6,11 +6,13 @@ import { RETRIEVE_USER } from "../graphql/queries";
 import useAuthStorage from '../hooks/useAuthStorage';
 import useDeleteReview from '../hooks/useDeleteReview'
 import ReviewItem from './ReviewItem'
+import SignInPrompt from './SignInPrompt'
+
 
 
 const MyReviews = () => {
   const authStorage = useAuthStorage()
-  const userIsLoggedIn = authStorage.getAccessToken()
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState()
   let [userReviews, setUserReviews] = useState([])
   const {data, error, loading, refetch} = useQuery(RETRIEVE_USER, {fetchPolicy: 'cache-and-network', variables: {includeReviews: true}})
 //   const [mutate] = useMutation(DELETE_REVIEW)
@@ -32,12 +34,21 @@ const MyReviews = () => {
     }
     }, [data, loading]);
 
+    useEffect(() => {
+      authStorage.getAccessToken().then(token => setUserIsLoggedIn(token))
+    }, [])
+
   return (
-      userIsLoggedIn && <FlatList 
-        data={userReviews}
-        keyExtractor={({id}) => id}
-        renderItem={({item}) => <ReviewItem review={item} onlyUserReview={true} deleteReview={deleteAndRefetch} />}        
-      />
+      userIsLoggedIn ? (
+        <FlatList 
+          data={userReviews}
+          keyExtractor={({id}) => id}
+          renderItem={({item}) => <ReviewItem review={item} onlyUserReview={true} deleteReview={deleteAndRefetch} />}        
+        />
+
+      ) : (
+        <SignInPrompt />
+      )
   )
 };
 

@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   picker: {
+    width: 'fit-content',
     height: 40, 
-    marginTop: 8, 
+    marginTop:16, 
     padding: 4, 
     marginHorizontal: 8, 
     borderRadius: 8
@@ -40,7 +41,7 @@ const SortingMethodPicker = ({order, changeOrderMethod}) => {
                                         ? 'highest' : 'lowest')
   return (
     <Picker
-        style={[styles.picker, tw`bg-slate-100 border-slate-100`]}  
+        style={[styles.picker, tw` self-end bg-slate-100 border-slate-100`]}  
         selectedValue={newSelected}
         onValueChange={(itemValue, itemPosition) =>{
           let order;
@@ -64,9 +65,9 @@ const SortingMethodPicker = ({order, changeOrderMethod}) => {
       }
     }
     >
-    <Picker.Item label="Latest repositories" value="latest" />
-    <Picker.Item label="Highest rated repositories" value="highest" />
-    <Picker.Item label="Lowest rated repositories" value="lowest" />
+    <Picker.Item label="Latest Reviewd" value="latest" />
+    <Picker.Item label="Highest Rated" value="highest" />
+    <Picker.Item label="Lowest Rated" value="lowest" />
   </Picker>
   )
 }

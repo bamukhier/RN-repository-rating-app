@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup'
 import FormikTextInput from './FormikTextInput'
 import Text from './Text'
+import SignInPrompt from './SignInPrompt'
 import tw from 'twrnc'
 import { WRITE_REVIEW } from "../graphql/mutations";
 import { useLocation } from 'react-router-native';
@@ -102,7 +103,7 @@ const WriteReview = () => {
     }, [])
 
     return (
-        userIsLoggedIn ? <ReviewContainer onSubmit={onSubmit} /> : null
+        userIsLoggedIn ? <ReviewContainer onSubmit={onSubmit} /> : <SignInPrompt />
     )
 }
 export default WriteReview;
