@@ -1,5 +1,4 @@
 import { View, StyleSheet, Pressable, Alert } from "react-native"
-import { useNavigate } from "react-router-native";
 import Text from './Text'
 import theme from "../theme";
 import tw from 'twrnc'
@@ -49,10 +48,8 @@ const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-uk',dateOptions).replace(/\//g, '-')
 }
 
-const ReviewItem = ({review, onlyUserReview, deleteReview}) => {
-  
-    const navigate = useNavigate()
-    
+const ReviewItem = ({review, onlyUserReview, deleteReview, navigation}) => {
+      
     const calcRatingBorderColor = (rating) => {
         const borderColor = rating > 80 ? 'green' : (rating > 50 ? 'gold' : 'red')
         return {borderColor}
@@ -91,8 +88,7 @@ const ReviewItem = ({review, onlyUserReview, deleteReview}) => {
           onlyUserReview && (
         <View style={styles.buttonWrapper}>
           <View style={styles.button}>
-            {/* <Button onPress={() => navigate('/repo', {state: {id: review.repository.id}})} title='View Repository' color='darkgreen' /> */}
-              <Pressable onPress={() => navigate('/repo', {state: {id: review.repository.id}})} style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
+              <Pressable onPress={() => navigation.navigate('Home', {screen: 'Repository', params: {repoID: review.repository.id}})} style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
                 <Text fontWeight="bold"style={tw`text-blue-700`}>View Repo</Text>
               </Pressable>
           </View>

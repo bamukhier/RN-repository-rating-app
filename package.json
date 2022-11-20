@@ -17,7 +17,7 @@
       "^.+\\.jsx?$": "babel-jest"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|react-router-native)"
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/setupTests.js"
@@ -26,8 +26,12 @@
   "dependencies": {
     "@apollo/client": "^3.7.0",
     "@expo/metro-config": "^0.4.0",
+    "@expo/vector-icons": "^13.0.0",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-picker/picker": "^2.2.1",
+    "@react-navigation/material-bottom-tabs": "^6.2.4",
+    "@react-navigation/native": "^6.0.13",
+    "@react-navigation/native-stack": "^6.9.1",
     "dotenv": "^16.0.3",
     "expo": "~44.0.0",
     "expo-linking": "~3.0.0",
@@ -37,8 +41,10 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-paper": "^5.0.0-rc.10",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
-    "react-router-native": "^6.4.2",
     "twrnc": "^3.4.1",
     "use-debounce": "^8.0.4",
     "yup": "^0.32.11"

@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react'
 import { FlatList, View, StyleSheet, Pressable, TextInput} from 'react-native';
-import { useNavigate } from "react-router-native";
 import { useDebounce } from "use-debounce";
 import { Picker } from "@react-native-picker/picker";
 import tw from 'twrnc'
@@ -15,7 +14,7 @@ const styles = StyleSheet.create({
   searchBox: {
     backgroundColor: 'white',
     padding: 12,
-    marginTop: 8,
+    marginTop: 12,
     marginHorizontal: 8,
     borderColor: 'white',
     borderRadius: 8
@@ -41,7 +40,7 @@ const SortingMethodPicker = ({order, changeOrderMethod}) => {
                                         ? 'highest' : 'lowest')
   return (
     <Picker
-        style={[styles.picker, tw` self-end bg-slate-100 border-slate-100`]}  
+        style={[styles.picker, tw` self-end bg-stone-100	 border-stone-100`]}  
         selectedValue={newSelected}
         onValueChange={(itemValue, itemPosition) =>{
           let order;
@@ -80,8 +79,7 @@ const RepoListActions = ({order, changeOrderMethod, searchText, setSearchText}) 
 )
 
 
-export const RepositoryListContainer = ({repositories, order, changeOrderMethod, searchText, setSearchText, onEndReach}) => {
-  const navigate = useNavigate()
+export const RepositoryListContainer = ({repositories, order, changeOrderMethod, searchText, setSearchText, onEndReach, navigateToRepo}) => {
   // Get the nodes from the edges array
   const repositoryNodes = repositories
     ? repositories.edges.map(edge => edge.node)
@@ -91,7 +89,7 @@ export const RepositoryListContainer = ({repositories, order, changeOrderMethod,
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({item}) =>  (
-        <Pressable onPress={() => navigate('/repo', {state: item})}>
+        <Pressable onPress={() => navigateToRepo(item.id)}>
           <RepositoryItem item={item} />
         </Pressable>
       )}
@@ -104,7 +102,7 @@ export const RepositoryListContainer = ({repositories, order, changeOrderMethod,
 
 
 
-const RepositoryList = () => {
+const RepositoryList = ({navigation}) => {
   const [orderMethod, setOrderMethod] = useState({orderBy: 'CREATED_AT', orderDirection: 'DESC'})
   const [searchText, setSearchText] = useState('')
   const handleNewOrder = (newOrder) => setOrderMethod(newOrder)
@@ -116,6 +114,8 @@ const RepositoryList = () => {
   
   const onEndReach = () => fetchMore()
 
+  const navigateToRepo = (repoID) => navigation.navigate('Repository', {repoID})
+
   return <RepositoryListContainer 
     repositories={repositories} 
     order={orderMethod} 
@@ -123,6 +123,7 @@ const RepositoryList = () => {
     searchText={searchText}
     setSearchText={setSearchText}
     onEndReach={onEndReach}
+    navigateToRepo={navigateToRepo}
   />
 
 };

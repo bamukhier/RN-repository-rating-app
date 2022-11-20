@@ -1,6 +1,5 @@
 import { View, Image, Button, StyleSheet, Pressable } from "react-native"
 import {openURL} from "expo-linking";
-import { useNavigate } from "react-router-native";
 import tw from 'twrnc'
 import Text from './Text'
 import theme from "../theme";
@@ -60,8 +59,7 @@ const formatNumber = (num) => {
   }
 }
 
-const RepositoryItem = ({item, showButtons}) => {
-  const navigate = useNavigate()
+const RepositoryItem = ({item, showButtons, navigation}) => {
   return (
     <View testID="repoItem" style={[styles.card, {marginBottom: showButtons? 12 : 0}]}>
       <View style={styles.headline}>
@@ -96,7 +94,7 @@ const RepositoryItem = ({item, showButtons}) => {
         </View>
       </View>
       {
-        showButtons &&
+        showButtons && navigation &&
         <View style={styles.buttonWrapper}>
           <View style={styles.button}>{
             item.userHasReviewed ? (
@@ -105,7 +103,7 @@ const RepositoryItem = ({item, showButtons}) => {
               </Pressable>
 
             ) : (
-              <Pressable onPress={() => navigate('/review', {state: {ownerName: item.ownerName, repositoryName: item.name}})}  style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
+              <Pressable onPress={() => navigation.navigate('Review', {ownerName: item.ownerName, repositoryName: item.name})}  style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
                 <Text fontWeight="bold" style={tw`text-blue-700`}>Review this Repo</Text>
               </Pressable>
             )

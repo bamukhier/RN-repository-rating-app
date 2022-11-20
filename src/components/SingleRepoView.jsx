@@ -2,16 +2,15 @@ import RepositoryItem from "./RepositoryItem";
 import ReviewItem from './ReviewItem'
 import useRepositoryReviews from '../hooks/useSingleRepository'
 import { FlatList, View } from "react-native";
-import { useLocation } from 'react-router-native';
 import { useState, useEffect } from "react";
 
 
 
-const SingleRepoView = () => {
-  const {state : repoID} = useLocation()
+const SingleRepoView = ({route, navigation}) => {
+  const {repoID} = route.params
   const [repo, setRepo] = useState()
   const [reviews, setReviews] = useState()
-  const {data, loading, error} = useRepositoryReviews(repoID.id)
+  const {data, loading, error} = useRepositoryReviews(repoID)
 
   useEffect(() => {
     if (!error && !loading){
@@ -28,7 +27,7 @@ const SingleRepoView = () => {
           data={reviews}
           keyExtractor={({id}) => id}
           renderItem={({item}) => <ReviewItem review={item} />}
-          ListHeaderComponent={()=> <RepositoryItem item={repo} showButtons={true} /> }
+          ListHeaderComponent={()=> <RepositoryItem item={repo} showButtons={true} navigation={navigation} /> }
           
         />
         ) : null

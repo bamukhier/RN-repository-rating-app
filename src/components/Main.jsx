@@ -1,10 +1,10 @@
 import { StyleSheet, View } from 'react-native';
-import { Route, Routes, Navigate } from 'react-router-native'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import tw from 'twrnc';
 import RepositoryList from './RepositoryList'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
-import AppNavBar from './AppNavBar'
 import SingleRepoView from './SingleRepoView'
 import WriteReview from './WriteReview'
 import theme from '../theme';
@@ -22,20 +22,35 @@ const styles = StyleSheet.create({
   },
 });
 
+
+const Tab = createMaterialBottomTabNavigator()
+const RepoStack = createNativeStackNavigator()
+const AuthStack = createNativeStackNavigator()
+
+const RepoStackScreen = () => (
+  <RepoStack.Navigator>
+    <RepoStack.Screen name='Home' component={RepositoryList} options={{headerShown: false}} />
+    <RepoStack.Screen name='Repository' component={SingleRepoView} />
+    <RepoStack.Screen name='Review' component={WriteReview} />
+  </RepoStack.Navigator>
+)
+
+const AuthStackScreen = () => (
+  <AuthStack.Navigator screenOptions={{headerShown: false}}>
+    <AuthStack.Screen name='Login' component={SignIn}  />
+    <AuthStack.Screen name='SignUp' component={SignUp} />
+  </AuthStack.Navigator>
+)
+
+
 const Main = () => {
   return (
     <View style={[tw`bg-slate-100`, styles.container]}>
-      <AppNavBar />
-      <Routes>
-        <Route path='/' element={<RepositoryList />} exact />
-        <Route path='/login' element={<SignIn />} exact />
-        <Route path='/signup' element={<SignUp />} exact />
-        <Route path='/repo' element={<SingleRepoView />} exact />
-        <Route path='/review' element={<WriteReview />} exact  />
-        <Route path='/my-reviews' element={<MyReviews />} exact  />
-        <Route path='*' element={<Navigate to='/' replace />} />
-      </Routes>
-      
+      <Tab.Navigator screenOptions={{headerShown: false}} barStyle={{ backgroundColor: '#f5f5f4'}} >
+        <Tab.Screen name='Home' component={RepoStackScreen} options={{tabBarIcon: 'home', }} />
+        <Tab.Screen name='MyReviews' component={MyReviews} options={{tabBarIcon: 'book'}} />
+        <Tab.Screen name='Account' component={AuthStackScreen} options={{tabBarIcon: 'account'}} />
+      </Tab.Navigator>    
     </View>
   );
 };

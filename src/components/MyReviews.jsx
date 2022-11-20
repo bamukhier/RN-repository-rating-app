@@ -10,7 +10,7 @@ import SignInPrompt from './SignInPrompt'
 
 
 
-const MyReviews = () => {
+const MyReviews = ({navigation}) => {
   const authStorage = useAuthStorage()
   const [userIsLoggedIn, setUserIsLoggedIn] = useState()
   let [userReviews, setUserReviews] = useState([])
@@ -36,18 +36,18 @@ const MyReviews = () => {
 
     useEffect(() => {
       authStorage.getAccessToken().then(token => setUserIsLoggedIn(token))
-    }, [])
+    }, [userReviews])
 
   return (
       userIsLoggedIn ? (
         <FlatList 
           data={userReviews}
           keyExtractor={({id}) => id}
-          renderItem={({item}) => <ReviewItem review={item} onlyUserReview={true} deleteReview={deleteAndRefetch} />}        
+          renderItem={({item}) => <ReviewItem review={item} onlyUserReview={true} deleteReview={deleteAndRefetch} navigation={navigation} />}        
         />
 
       ) : (
-        <SignInPrompt />
+        <SignInPrompt navigation={navigation}/>
       )
   )
 };

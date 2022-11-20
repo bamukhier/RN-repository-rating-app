@@ -1,5 +1,4 @@
-import { View, StyleSheet, Pressable, Button, Alert } from 'react-native'
-import { useNavigate } from "react-router-native";
+import { View, StyleSheet, Pressable, Alert } from 'react-native'
 import { useMutation } from "@apollo/client";
 import { Formik } from 'formik';
 import * as yup from 'yup'
@@ -8,7 +7,6 @@ import Text from './Text'
 import SignInPrompt from './SignInPrompt'
 import tw from 'twrnc'
 import { WRITE_REVIEW } from "../graphql/mutations";
-import { useLocation } from 'react-router-native';
 import useAuthStorage from '../hooks/useAuthStorage';
 import { useEffect, useState } from 'react';
 
@@ -58,8 +56,7 @@ const ReviewForm = ({onSubmit}) => {
 };
 
 
-export const ReviewContainer = ({onSubmit}) => {
-    const {state : repoDetails} = useLocation()
+export const ReviewContainer = ({onSubmit, repoDetails}) => {
     return (
         <Formik 
             initialValues={
@@ -77,12 +74,11 @@ export const ReviewContainer = ({onSubmit}) => {
 }
 
 
-const WriteReview = () => {
+const WriteReview = ({route, navigation}) => {
+    const repoDetails = route.params
     const authStorage = useAuthStorage()
     const [userIsLoggedIn, setUserIsLoggedIn] = useState()
-    console.log(userIsLoggedIn)
     const [mutate] = useMutation(WRITE_REVIEW)
-    const navigate = useNavigate()
 
     const onSubmit = async (values) => {
         let {rating} = values
@@ -91,7 +87,7 @@ const WriteReview = () => {
             const {data} = await mutate({variables: {...values, rating}})
             if (data.createReview.repositoryId){
                 Alert.alert('Review submitted successfully ✔')
-                navigate(-1)
+                navigation.goBack()
             }
         } catch (e) {
             console.log(e)
@@ -103,7 +99,7 @@ const WriteReview = () => {
     }, [])
 
     return (
-        userIsLoggedIn ? <ReviewContainer onSubmit={onSubmit} /> : <SignInPrompt />
+        userIsLoggedIn ? <ReviewContainer onSubmit={onSubmit} repoDetails={repoDetails} /> : <SignInPrompt navigation={navigation}/>
     )
 }
 export default WriteReview;
