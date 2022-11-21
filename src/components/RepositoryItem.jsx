@@ -36,14 +36,17 @@ const styles = StyleSheet.create({
     marginTop: 16
   },
   buttonWrapper: {
+    marginTop: 16,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'baseline'
+    alignItems: 'baseline',
+    borderTopWidth: 0.3,
+    borderTopColor: '#f2f2f2',
   },
   button: {
     flex: 1,
     marginHorizontal: 4,
-    marginTop: 16,
+    marginTop: 12,
     borderRadius: 16
   }
 });
@@ -98,20 +101,20 @@ const RepositoryItem = ({item, showButtons, navigation}) => {
         <View style={styles.buttonWrapper}>
           <View style={styles.button}>{
             item.userHasReviewed ? (
-              <Pressable disabled style={tw`justify-center items-center bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg border border-blue-700`}>
-                <Text fontWeight="bold" style={{color: "white"}}>Reviewed ✔</Text>
+              <Pressable disabled style={tw`justify-center items-center bg-transparent text-white font-bold py-2 px-4 rounded-lg border border-stone-400`}>
+                <Text fontWeight="bold" style={tw`text-stone-400`}>Reviewed</Text>
               </Pressable>
 
             ) : (
-              <Pressable onPress={() => navigation.navigate('Review', {ownerName: item.ownerName, repositoryName: item.name})}  style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
-                <Text fontWeight="bold" style={tw`text-blue-700`}>Review this Repo</Text>
+              <Pressable onPress={() => navigation.navigate('Review', {ownerName: item.ownerName, repositoryName: item.name})}  style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-violet-900`}>
+                <Text fontWeight="bold" style={tw`text-violet-900`}>Review Repo</Text>
               </Pressable>
             )
           }
           </View>
           <View style={styles.button}>
-            <Pressable onPress={() => openURL(item.url)} style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
-              <Text fontWeight="bold" style={tw`text-blue-700`}>Open in GitHub</Text>
+            <Pressable onPress={() => openURL(item.url)} style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-violet-900`}>
+              <Text fontWeight="bold" style={tw`text-violet-900`}>Open in GitHub</Text>
             </Pressable>
           </View>
         </View> 

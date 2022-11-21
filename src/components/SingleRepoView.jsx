@@ -21,7 +21,7 @@ const SingleRepoView = ({route, navigation}) => {
   }, [data, loading])
 
   return (
-     <View>
+     <View style={{flex: 1}}>
       {repo ?  (
         <FlatList 
           data={reviews}

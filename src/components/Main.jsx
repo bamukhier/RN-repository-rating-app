@@ -45,7 +45,7 @@ const AuthStackScreen = () => (
 
 const Main = () => {
   return (
-    <View style={[tw`bg-slate-100`, styles.container]}>
+    <View style={styles.container}>
       <Tab.Navigator screenOptions={{headerShown: false}} barStyle={{ backgroundColor: '#f5f5f4'}} >
         <Tab.Screen name='Home' component={RepoStackScreen} options={{tabBarIcon: 'home', }} />
         <Tab.Screen name='MyReviews' component={MyReviews} options={{tabBarIcon: 'book'}} />

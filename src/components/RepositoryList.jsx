@@ -1,11 +1,10 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import { FlatList, View, StyleSheet, Pressable, TextInput} from 'react-native';
 import { useDebounce } from "use-debounce";
 import { Picker } from "@react-native-picker/picker";
 import tw from 'twrnc'
 import useRepositories from '../hooks/useRepositories'
 import RepositoryItem from './RepositoryItem'
-import themes from '../theme'
 
 const styles = StyleSheet.create({
   separator: {
@@ -25,8 +24,10 @@ const styles = StyleSheet.create({
     marginTop:16, 
     padding: 4, 
     marginHorizontal: 8, 
-    borderRadius: 8
-  }
+    borderRadius: 8,
+    backgroundColor: '#f2f2f2',
+    borderColor: '#f2f2f2',
+  },
 });
 
 
@@ -40,7 +41,7 @@ const SortingMethodPicker = ({order, changeOrderMethod}) => {
                                         ? 'highest' : 'lowest')
   return (
     <Picker
-        style={[styles.picker, tw` self-end bg-stone-100	 border-stone-100`]}  
+        style={[styles.picker, tw` self-end`]}  
         selectedValue={newSelected}
         onValueChange={(itemValue, itemPosition) =>{
           let order;

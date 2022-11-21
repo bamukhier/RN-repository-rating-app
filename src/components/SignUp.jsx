@@ -38,8 +38,8 @@ const SignUpForm = ({onSubmit}) => {
           <FormikTextInput name='username' placeholder='Username' />
           <FormikTextInput name='password' placeholder='Password' secureTextEntry />
           <FormikTextInput name='confirmPassword' placeholder='Password Confirmation' secureTextEntry />
-            <Pressable onPress={onSubmit} style={tw`justify-center items-center bg-blue-700 font-bold mx-2 mt-8 py-2 px-4 rounded-lg border border-blue-700`}>
-              <Text fontWeight="bold" style={tw`text-white`}>Sign Up</Text>
+            <Pressable onPress={onSubmit} style={tw`justify-center items-center bg-violet-800 font-bold mx-2 mt-8 py-2 px-4 rounded-lg border border-violet-800`}>
+              <Text fontWeight="bold" style={tw`text-white text-md`}>Sign Up</Text>
             </Pressable>
       </View>
   )
