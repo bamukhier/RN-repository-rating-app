@@ -1,5 +1,5 @@
-import RepositoryItem from "./RepositoryItem";
-import ReviewItem from './ReviewItem'
+import RepositoryItem from "../components/RepositoryItem";
+import ReviewItem from '../components/ReviewItem'
 import useRepositoryReviews from '../hooks/useSingleRepository'
 import { FlatList, View } from "react-native";
 import { useState, useEffect } from "react";

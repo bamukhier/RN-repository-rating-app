@@ -40,12 +40,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'baseline',
-    borderTopWidth: 0.3,
+    borderTopWidth: 0.5,
     borderTopColor: '#f2f2f2',
   },
   button: {
     flex: 1,
-    marginHorizontal: 4,
+    marginHorizontal: 6,
     marginTop: 12,
     borderRadius: 16
   }

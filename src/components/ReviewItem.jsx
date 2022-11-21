@@ -29,11 +29,14 @@ const styles = StyleSheet.create({
   },
     buttonWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginTop: 12,
+    borderTopWidth: 0.5,
+    borderTopColor: '#f2f2f2',
   },
   button: {
     flex: 1,
-    marginHorizontal: 4,
+    marginHorizontal: 6,
     marginTop: 16,
     borderRadius: 16
   }
@@ -88,14 +91,14 @@ const ReviewItem = ({review, onlyUserReview, deleteReview, navigation}) => {
           onlyUserReview && (
         <View style={styles.buttonWrapper}>
           <View style={styles.button}>
-              <Pressable onPress={() => navigation.navigate('Home', {screen: 'Repository', params: {repoID: review.repository.id}})} style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
-                <Text fontWeight="bold"style={tw`text-blue-700`}>View Repo</Text>
+              <Pressable onPress={() => navigation.navigate('Home', {screen: 'Repository', params: {repoID: review.repository.id}})} style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-violet-900`}>
+                <Text fontWeight="bold"style={tw`text-violet-900`}>View Repo</Text>
               </Pressable>
           </View>
           <View style={styles.button}>
             {/* <Button onPress={() => handleDeleteReview(review.id)} title='Delete Review' color='red' /> */}
-              <Pressable onPress={() => handleDeleteReview(review.id)}  style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-blue-700`}>
-                <Text fontWeight="bold" style={tw`text-blue-700`}>Delete Review</Text>
+              <Pressable onPress={() => handleDeleteReview(review.id)}  style={tw`justify-center items-center bg-transparent font-bold py-2 px-4 rounded-lg border border-violet-900`}>
+                <Text fontWeight="bold" style={tw`text-violet-900`}>Delete Review</Text>
               </Pressable>
           </View>
         </View> 

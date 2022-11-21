@@ -1,10 +1,10 @@
-import { View, StyleSheet, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { useMutation } from "@apollo/client";
 import { Formik } from 'formik';
 import * as yup from 'yup'
 import tw from 'twrnc'
-import Text from './Text';
-import FormikTextInput from './FormikTextInput'
+import Text from '../components/Text';
+import FormikTextInput from '../components/FormikTextInput'
 import useSignIn from "../hooks/useSignIn"
 import { REGISTER_USER } from "../graphql/mutations";
 

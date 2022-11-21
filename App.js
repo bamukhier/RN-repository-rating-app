@@ -3,7 +3,7 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { ApolloProvider } from '@apollo/client';
 import createApolloClient from './src/utils/apolloClient';
 import AuthStorage from './src/utils/authStorage';
-import Main from './src/components/Main'
+import Main from './src/screens/Main'
 import AuthStorageContext from './src/contexts/AuthStorageContext';
 import { Provider as PaperProvider } from "react-native-paper";
 const authStorage = new AuthStorage()

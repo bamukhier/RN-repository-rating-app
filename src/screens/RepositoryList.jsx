@@ -4,7 +4,7 @@ import { useDebounce } from "use-debounce";
 import { Picker } from "@react-native-picker/picker";
 import tw from 'twrnc'
 import useRepositories from '../hooks/useRepositories'
-import RepositoryItem from './RepositoryItem'
+import RepositoryItem from '../components/RepositoryItem'
 
 const styles = StyleSheet.create({
   separator: {
@@ -74,7 +74,7 @@ const SortingMethodPicker = ({order, changeOrderMethod}) => {
 
 const RepoListActions = ({order, changeOrderMethod, searchText, setSearchText}) => (
   <View>
-    <TextInput style={styles.searchBox} placeholder='Search for a repository' value={searchText} onChangeText={(value) => setSearchText(value)} />
+    <TextInput style={styles.searchBox} placeholder='Search for a repository...' value={searchText} onChangeText={(value) => setSearchText(value)} />
     <SortingMethodPicker order={order} changeOrderMethod={changeOrderMethod} />
   </View>
 )

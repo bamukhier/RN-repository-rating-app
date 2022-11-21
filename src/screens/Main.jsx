@@ -1,7 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import tw from 'twrnc';
 import RepositoryList from './RepositoryList'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
@@ -30,8 +29,8 @@ const AuthStack = createNativeStackNavigator()
 const RepoStackScreen = () => (
   <RepoStack.Navigator>
     <RepoStack.Screen name='Home' component={RepositoryList} options={{headerShown: false}} />
-    <RepoStack.Screen name='Repository' component={SingleRepoView} />
-    <RepoStack.Screen name='Review' component={WriteReview} />
+    <RepoStack.Screen name='Repository' component={SingleRepoView} options={{headerStyle: {backgroundColor: '#f5f5f4'}}}/>
+    <RepoStack.Screen name='Review' component={WriteReview} options={{headerStyle: {backgroundColor: '#f5f5f4'}}}/>
   </RepoStack.Navigator>
 )
 

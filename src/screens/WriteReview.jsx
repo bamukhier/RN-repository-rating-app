@@ -2,9 +2,9 @@ import { View, StyleSheet, Pressable, Alert } from 'react-native'
 import { useMutation } from "@apollo/client";
 import { Formik } from 'formik';
 import * as yup from 'yup'
-import FormikTextInput from './FormikTextInput'
-import Text from './Text'
-import SignInPrompt from './SignInPrompt'
+import FormikTextInput from '../components/FormikTextInput'
+import Text from '../components/Text'
+import SignInPrompt from '../components/SignInPrompt'
 import tw from 'twrnc'
 import { WRITE_REVIEW } from "../graphql/mutations";
 import useAuthStorage from '../hooks/useAuthStorage';

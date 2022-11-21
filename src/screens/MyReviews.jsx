@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { FlatList } from "react-native";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { RETRIEVE_USER } from "../graphql/queries";
-// import { DELETE_REVIEW } from "../graphql/mutations";
 import useAuthStorage from '../hooks/useAuthStorage';
 import useDeleteReview from '../hooks/useDeleteReview'
-import ReviewItem from './ReviewItem'
-import SignInPrompt from './SignInPrompt'
+import ReviewItem from '../components/ReviewItem'
+import SignInPrompt from '../components/SignInPrompt'
 
 
 
@@ -15,7 +14,6 @@ const MyReviews = ({navigation}) => {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState()
   let [userReviews, setUserReviews] = useState([])
   const {data, error, loading, refetch} = useQuery(RETRIEVE_USER, {fetchPolicy: 'cache-and-network', variables: {includeReviews: true}})
-//   const [mutate] = useMutation(DELETE_REVIEW)
   const [deleteReview] = useDeleteReview()
 
   const deleteAndRefetch = async (id) => {

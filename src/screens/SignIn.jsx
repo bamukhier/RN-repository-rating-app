@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import useAuthStorage from '../hooks/useAuthStorage';
-import { View, StyleSheet, Pressable } from 'react-native'
+import { View, Pressable } from 'react-native'
 import { Formik } from 'formik';
 import * as yup from 'yup'
 import tw from 'twrnc'
-import Text from './Text';
-import FormikTextInput from './FormikTextInput'
+import Text from '../components/Text';
+import FormikTextInput from '../components/FormikTextInput'
 import useSignIn from "../hooks/useSignIn"
 import { useApolloClient } from "@apollo/client";
 
